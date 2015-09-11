@@ -1,0 +1,36 @@
+
+DROP DATABASE Carnicus;
+CREATE DATABASE Carnicus;
+USE Carnicus;
+
+CREATE USER CarnicusServer IDENTIFIED BY 'qqiuIUr348EW'; 
+
+GRANT USAGE ON *.* TO CarnicusServer@localhost IDENTIFIED BY 'qqiuIUr348EW'; 
+GRANT ALL PRIVILEGES ON Carnicus.* TO CarnicusServer@localhost; 
+
+DROP TABLE accounts;
+DROP TABLE characters;
+
+CREATE TABLE Accounts (id INT NOT NULL AUTO_INCREMENT, 
+    username VARCHAR(40) NOT NULL UNIQUE,
+    password VARCHAR(40) NOT NULL, 
+    email VARCHAR(40) NOT NULL, 
+    PRIMARY KEY (ID));
+    
+CREATE TABLE Characters (id INT NOT NULL AUTO_INCREMENT, 
+    account_id INT,
+    name VARCHAR(40) NOT NULL UNIQUE,
+    posx DECIMAL(50, 20) NOT NULL,
+    posy DECIMAL(50, 20) NOT NULL,
+    posz DECIMAL(50, 20) NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (account_id) REFERENCES Accounts(id));
+
+INSERT INTO Accounts VALUES(DEFAULT, "a", "a", "a@gmail.com");
+INSERT INTO Accounts VALUES(DEFAULT, "b", "b", "b@gmail.com");
+INSERT INTO Characters VALUES(DEFAULT, 1, "achar", -5, -5, 0);
+INSERT INTO Characters VALUES(DEFAULT, 2, "bchar", 5, 5, 0);
+
+
+
+
